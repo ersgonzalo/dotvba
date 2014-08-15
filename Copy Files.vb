@@ -95,3 +95,12 @@ Function FileSearch(sPath As String) As String
     Next
     
 End Function
+
+'Reconsiderations
+'-----------------
+'
+'End Notes
+'------------
+'For searching subdirectories
+'http://www.ammara.com/access_image_faq/recursive_folder_search.html
+'https://stackoverflow.com/questions/20687810/vba-macro-that-search-for-file-in-multiple-subfolders
