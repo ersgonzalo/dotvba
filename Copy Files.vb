@@ -9,15 +9,15 @@ Sub FileManage()
       
       Dim folderName As String
       Dim boro As String
-      Dim searchLoc As String
-      Dim destnLoc As String 'specific locations
-      Dim fileN As String
+      Dim searchLoc As String 'specific locations
+      Dim destinLoc As String 
+      Dim fileName As String
       
-      boro = LCase(Range("D5").Value) 'Reads the cells, this one converts it to lower case.
+      boro = LCase(Range("D5").Value) 'Reads the cells for searching.
       folderName = (Range("D7").Value)
       searchLoc = (Range("D9").Value)
       
-      'Part 1 - Checks to make sure boro is not blank.
+      'Part 1 - Checks to make sure borough is not blank.
       If (boro = "") Then
         MsgBox "You have not typed-in/selected a borough!"
         Exit Sub
@@ -46,13 +46,12 @@ Sub FileManage()
       End If
       
       'Part 4 - Copies the files.
-      ' Select cell A2, *first line of data*.
       Range("A2").Select
-      ' Set Do loop to stop when an empty cell is reached.
+      'Set Do loop to stop when an empty cell is reached.
       Do Until IsEmpty(ActiveCell)
          'Search Method
          Call FileSearch(searchLoc)
-         ' Step down 1 row from present location.
+         'Step down 1 row from present location.
          ActiveCell.Offset(1, 0).Select
       Loop
       
@@ -67,27 +66,24 @@ Function FileSearch(sPath As String) As String
     Dim myFolder As Folder
     Dim mySubFolder As Folder
     Dim myFile As file
-    Dim destnLoc As String
+    Dim destinLoc As String
     
-    fileN = "?" & ActiveCell.Value & "*" & ".pdf"
+    fileName = "?" & ActiveCell.Value & "*" & ".pdf"
     destinLoc = "C:\Users\" & (Environ$("Username")) & "\Desktop\" & Range("D7").Value & "\"
          
     Set myFolder = FSO.GetFolder(sPath)
     
     For Each myFile In myFolder.Files
-            If myFile.Name Like fileN Then
+            If myFile.Name Like fileName Then
                  'To see if such stuff exist Debug.Print myFile.Name & " in " & myFile.Path 'Or do whatever you want with the file
                  'Method to copy the found file
                  FSO.CopyFile myFile, destinLoc
             End If
     Next
-    
-    
+       
     For Each mySubFolder In myFolder.SubFolders
         For Each myFile In mySubFolder.Files
-            If myFile.Name Like fileN Then
-                 'To see if such stuff exist Debug.Print myFile.Name & " in " & myFile.Path 'Or do whatever you want with the file
-                 'Method to copy the found file
+            If myFile.Name Like fileName Then
                  FSO.CopyFile myFile, destinLoc
             End If
         Next

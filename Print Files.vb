@@ -1,8 +1,10 @@
 '-----------------------------------------------------------------------'
 'Code by Eric Gonzalo                                                   '
-'For use in the Department of Transportation to help with mass printing '
-'files from a single folder. However, it seems to go out of order no    '
-'matter what. Helps with violations and other general work.             '
+'Used in the Department of Transportation to help with mass printing 	'
+'files from a single folder. However, it seems to go out of order when  '
+'printer slows in processing, likely due to the network. Helps with 	'
+'violations and other general documents. Built on a principle similar	'
+'to the File Copier I had heavily researched previously.				'
 '-----------------------------------------------------------------------'
 
 Option Explicit
@@ -27,37 +29,56 @@ Sub PrintFiles()
     Dim myFolder As Folder
     Dim myFile As file
     Dim fileN As String
+    Dim copyCount As Integer
+    Dim endCount As Integer
     
     If Range("D5").Value = "" Then
+        'Checks to define a folder you print files from.
         MsgBox "Please enter a folder you would like to print from!"
         Exit Sub
     Else
         Set myFolder = FSO.GetFolder(Range("D5").Value)
     End If
 
+    If Range("D11").Value = "" Or 1 Then
+		'Helps define the number of copies that will be printed.
+        Range("D11").Value = 1
+        Range("E11").Value = "Copy"
+    Else
+        Range("E11").Value = "Copies"
+    End If
+    
+    endCount = Range("D11").Value
+    
     If ((Sheets("Sheet1").OLEObjects("chkList").Object.Value = True)) Then
-        'Debug.Print "Hello!"
         Range("A2").Select
+        
         Do Until IsEmpty(ActiveCell)
-        fileN = "?" & ActiveCell.Value & "*" & ".*"
+            fileN = "?" & ActiveCell.Value & "*" & ".*"
+        
             For Each myFile In myFolder.Files
+            
                 If myFile.Name Like fileN Then
-                    'Method to print the found file in the origin folder
-					PrintSetup (myFile)
-					'Method will wait 7 seconds before printing the next file.
+                    For copyCount = 1 To endCount
+                        PrintSetup (myFile)
+                        'Debug.Print myFile & "...next File"
+                    Next copyCount
+                    'Method will wait 7 seconds before printing the next file.
                     Application.Wait (Now + TimeValue("00:00:07"))
                 End If
+                
             Next
-            ActiveCell.Offset(1, 0).Select
+            
+        ActiveCell.Offset(1, 0).Select
         Loop
     Else
         For Each myFile In myFolder.Files
-                 'To see if such stuff exist:: Debug.Print myFile.Name & " in " & myFile.Path 'Or do whatever you want with the file                 
-                 PrintSetup (myFile)
-                 'Debug.Print myFile & "...next File"
-                 Application.Wait (Now + TimeValue("00:00:07"))
+            For copyCount = 1 To endCount
+                PrintSetup (myFile)
+                'To see if such stuff exist:: Debug.Print myFile.Name & " in " & myFile.Path 'Or do whatever you want with the file
+            Next copyCount
+        Application.Wait (Now + TimeValue("00:00:07"))
         Next
-    
     End If
             
     MsgBox "Your files should have all been printed! Please check to make sure there is no mistakes or unusual copies!"
