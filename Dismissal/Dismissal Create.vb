@@ -3,7 +3,7 @@
 'Used in the Department of Transportation to help creating Dismissal    '
 'Inspections from property data. Still in progress but should work with '
 'the data and create a specific sheet based on the row that gets filled '
-'out. Still needs a way to check the data and save it.                  '
+'out.																	'
 '-----------------------------------------------------------------------'
 Option Explicit
 
@@ -66,9 +66,10 @@ Set wdApp = New Word.Application
 
     With wdApp.ActiveDocument
         .SaveAs d_Borough & " - " & d_Address
+		.Application.Quit
     End With
 
-MsgBox "You file has been created!"
+MsgBox "You files have been created! Please check to make sure all the data is present"
 
 errorHandler:
 Set wdApp = Nothing
@@ -76,8 +77,3 @@ Set myDoc = Nothing
 Set mywdRange = Nothing
 
 End Sub
-
-' d_borough, block, lot, d_violation, d_permitNum, attemptNum, d_vioAddr
-'http://www.mrexcel.com/forum/general-excel-discussion-other-questions/787952-best-way-populate-word.html
-'http://www.mrexcel.com/forum/excel-questions/706989-export-excel-ranges-word-bookmarks-using-visual-basic-applications-save-word-doc-same-location-workbook.html
-'http://www.mrexcel.com/forum/excel-questions/544782-visual-basic-applications-code-excel-opens-word-template-fills-bookmarks-but-cant-get-percent-formatting-right.html
