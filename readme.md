@@ -1,16 +1,11 @@
 Creating this to help explain my first Repo (hurryay!) on Github, as well as for the VBA files. Created this during my time at work to automate some repetitive tasks. Could have simplified it more but I want to put some fail safes for the future when others may use my applications. Putting down the sources of where I found code to help keep track of what I've done and modified. Lots of things to do and change!
 
-Reconsiderations
+Future Reconsiderations
 ------------
 - Possibly make "Copy Files.vb" more sensitive about directory searching so it doesn't take as long
-- Update Dismissal Create.vb to take in all the rows, and then 
+- Update Dismissal Create.vb to take in all the rows, and then loop through until the last row
 
 Creating this to help explain my first repo on Github, as well as for the VBA files. Putting down the sources of where I found code to help keep track of what I've done and modified. Lots of things to do and change!
-
-Reconsiderations
-------------
-- Add a way to print multiple copies of a file within "Print Files.vb"
-- Possibly make "Copy Files.vb" more sensitive about directory searching so it doesn't take as long
 
 End Notes
 ------------
