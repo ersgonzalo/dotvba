@@ -3,7 +3,7 @@
 'Used in the Department of Transportation to help creating Dismissal    '
 'Inspections from property data. Still in progress but should work with '
 'the data and create a specific sheet based on the row that gets filled '
-'out.																	'
+'out.                                                                   '
 '-----------------------------------------------------------------------'
 Option Explicit
 
@@ -15,6 +15,7 @@ Dim wdApp As Word.Application
 Dim myDoc As Word.Document
 Dim mywdRange As Word.Range
 Dim tempLoc As String
+Dim savLoc As String
 Dim d_Borough As Excel.Range 'For Bookmarklets
     Dim boro As String
 Dim d_Address As Excel.Range
@@ -31,13 +32,21 @@ Set wdApp = New Word.Application
         .WindowState = wdWindowStateMaximize
     End With
 
-	If Sheets("Introduction").Range("B4").Value = "" Then
-		MsgBox "Please enter a location for your template file!"
-		Exit Sub
-	Else
-		tempLoc = Sheets("Introduction").Range("B4")
-	End If
-	
+    If Sheets("Introduction").Range("B4").Value = "" Then
+        MsgBox "Please enter a location for your template file!"
+        Exit Sub
+    Else
+        tempLoc = Sheets("Introduction").Range("B4")
+    End If
+    
+    If Sheets("Introduction").Range("B6").Value = "" Then
+        MsgBox "Please enter a name for your Destop Folder!"
+        Exit Sub
+    Else
+        savLoc = "C:\Users\" & (Environ$("Username")) & "\Desktop\" & Sheets("Introduction").Range("B6").Value & "\"
+        MkDir savLoc
+    End If
+    
     Set myDoc = wdApp.Documents.Add(Template:=tempLoc)
     Set d_Borough = Sheets("Information").Range("A2")
     Set d_Address = Sheets("Information").Range("B2")
@@ -71,13 +80,13 @@ Set wdApp = New Word.Application
     End With
     
     With wdApp.ActiveDocument
-        .SaveAs d_Borough & " - " & d_Address
-		.Application.Quit
+        .SaveAs savLoc & d_Borough & " - " & d_Address
+        .Application.Quit
     End With
-	
-	'Should I just insert a method to go down excel rows instead of deleting? 
-	'This one works more easily, and it allows a user to check it instead of being stuck with a loop.
-	Rows(2).Delete
+    
+    'Should I just insert a method to go down excel rows instead of deleting?
+    'This one works more easily, and it allows a user to check it instead of being stuck with a loop.
+    Rows(2).Delete
 
 'MsgBox "You file have been created! Please check to make sure all the data is present"
 
