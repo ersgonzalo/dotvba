@@ -7,7 +7,7 @@
 '-----------------------------------------------------------------------'
 Option Explicit
 
-Sub CertGenerator()
+Sub DismissMake()
 
 On Error GoTo errorHandler
 
@@ -40,7 +40,7 @@ Set wdApp = New Word.Application
     End If
     
     If Sheets("Introduction").Range("B6").Value = "" Then
-        MsgBox "Please enter a name for your Destop Folder!"
+        MsgBox "Please enter a name for your Desktop Folder!"
         Exit Sub
     Else
         savLoc = "C:\Users\" & (Environ$("Username")) & "\Desktop\" & Sheets("Introduction").Range("B6").Value & "\"
@@ -48,13 +48,13 @@ Set wdApp = New Word.Application
     End If
     
     Set myDoc = wdApp.Documents.Add(Template:=tempLoc)
-    Set d_Borough = Sheets("Information").Range("A2")
-    Set d_Address = Sheets("Information").Range("B2")
-    Set d_Block = Sheets("Information").Range("C2")
-    Set d_Lot = Sheets("Information").Range("D2")
-    Set d_Vio = Sheets("Information").Range("E2")
-    Set d_Permit = Sheets("Information").Range("F2")
-    Set d_Attempt = Sheets("Information").Range("G2")
+    Set d_Borough = Sheets("Creation").Range("A2")
+    Set d_Address = Sheets("Creation").Range("B2")
+    Set d_Block = Sheets("Creation").Range("C2")
+    Set d_Lot = Sheets("Creation").Range("D2")
+    Set d_Vio = Sheets("Creation").Range("E2")
+    Set d_Permit = Sheets("Creation").Range("F2")
+    Set d_Attempt = Sheets("Creation").Range("G2")
 
     Select Case d_Borough
         Case "K"
@@ -95,4 +95,19 @@ Set wdApp = Nothing
 Set myDoc = Nothing
 Set mywdRange = Nothing
 
+End Sub
+
+Sub FolderOpen()
+    
+    Dim savLoc As String
+    
+    If Sheets("Introduction").Range("B6").Value = "" Then
+        MsgBox "Please let the Transfer Function create your Desktop folder first!"
+        Exit Sub
+    Else
+        savLoc = "C:\Users\" & (Environ$("Username")) & "\Desktop\" & Sheets("Introduction").Range("B6").Value & "\"
+    End If
+
+    Call Shell("explorer.exe" & " " & savLoc, vbNormalFocus)
+    
 End Sub
