@@ -44,7 +44,12 @@ Set wdApp = New Word.Application
         Exit Sub
     Else
         savLoc = "C:\Users\" & (Environ$("Username")) & "\Desktop\" & Sheets("Introduction").Range("B6").Value & "\"
-        MkDir savLoc
+        
+        If Dir(savLoc, vbDirectory) = "" Then
+        'Checks to see if folder exists otherwise will create such a folder.
+        'Will end up preventing Dismissal from being created if MkDir does not have this check.
+            MkDir savLoc
+        End If
     End If
     
     Set myDoc = wdApp.Documents.Add(Template:=tempLoc)
