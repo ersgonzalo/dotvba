@@ -1,13 +1,10 @@
-Creating this to help explain my first Repo (hurryay!) on Github, as well as for the VBA files. Created this during my time at work to automate some repetitive tasks. Could have simplified it more but I want to put some fail safes for the future when others may use my applications. Putting down the sources of where I found code to help keep track of what I've done and modified. Lots of things to do and change!
+Creating this [readme.md] to help explain my first Repo (hurryay!) on Github. Created these various tidbits during my time at the Department of Transportation to automate some repetitive tasks within my unit. Could have simplified the code to my desires but I want to put some fail safes for the future when others may use my applications. Putting down the sources of where I found code to help keep track of what I've done and modified. Lots of things to do and change!
 
 Future Reconsiderations
 ------------
-- Possibly make "Copy Files.vb" more sensitive about directory searching so it doesn't take as long
-- Update Dismissal Create.vb to take in all the rows, and then loop through until the last row
+- Update Dismissal Create.vb to take in all the rows, and then loop through until the last row (aka no deletion of the row)
 
-Creating this to help explain my first repo on Github, as well as for the VBA files. Putting down the sources of where I found code to help keep track of what I've done and modified. Lots of things to do and change!
-
-End Notes
+End Notes/References
 ------------
 For searching subdirectories
 - http://www.ammara.com/access_image_faq/recursive_folder_search.html
